@@ -1,0 +1,1 @@
+include ':app', ':library', ':zxing', ':imagepacker', ':downmenu', ':pay'

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="SliderView">
+        <attr name="scaleType">
+            <enum name="FIT_XY" value="0"/>
+            <enum name="FIT_START" value="1"/>
+            <enum name="FIT_CENTER" value="2"/>
+            <enum name="FIT_END" value="3"/>
+            <enum name="CENTER" value="4"/>
+            <enum name="CENTER_CROP" value="5"/>
+            <enum name="CENTER_INSIDE" value="6"/>
+        </attr>
+    </declare-styleable>
+</resources>

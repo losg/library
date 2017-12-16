@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="window_background">#EAEAEA</color>
+    <color name="base_transparent">#00000000</color>
+    <color name="base_listPress">#33c0c0c0</color>
+    <color name="base_white">#ffffff</color>
+    <color name="base_line_color">#30000000</color>
+    <color name="base_progress_dialog_bg">#bb393939</color>
+    <color name="base_progress_dialog_stroke_color">#4FB4A9</color>
+
+    <color name="image_picker_blue_color">#1EB9F2</color>
+    <color name="image_picker_disable_text_color">#A6A6A6</color>
+    <color name="image_picker_disable_btn_color">#E9EBEC</color>
+
+    //design suggest alpha color
+    <color name="base_alpha_color_one">#DD000000</color>
+    <color name="base_alpha_color_second">#89000000</color>
+    <color name="base_alpha_color_third">#42000000</color>
+    <color name="base_alpha_color_four">#30000000</color>
+
+</resources>

@@ -1,0 +1,44 @@
+apply plugin: 'com.android.library'
+
+apply plugin: 'maven'
+
+android {
+    compileSdkVersion rootProject.ext.COMPILESDKVERSION
+    buildToolsVersion rootProject.ext.BUILDTOOLSVERSION
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.MINSDKVERSION
+        targetSdkVersion rootProject.ext.TARGETSDKVERSION
+        versionCode rootProject.ext.ZXING_VERSIONCODE
+        versionName rootProject.ext.ZXING_VERSIONNAME
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile "com.android.support:appcompat-v7:$rootProject.ext.SUPPORT_VERSION"
+    compile 'com.google.zxing:core:3.2.0'
+}
+
+uploadArchives {
+    repositories.mavenDeployer {
+        repository(url: 'http://localhost:8081/repository/losglib/') {
+            authentication(userName: 'admin', password: 'admin123')
+        }
+
+        pom.project {
+            name "zxinglib"
+            version rootProject.ext.ZXING_VERSIONNAME
+            artifactId 'zxing'
+            groupId 'com.losg.library'
+            packaging 'aar'
+            description 'zinglib'
+        }
+    }
+}

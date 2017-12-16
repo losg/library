@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">pay</string>
+    <string name="weixin_version_not_support">手机尚未安装微信或微信版本过低,请安装或将微信升级到最新版本</string>
+</resources>

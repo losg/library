@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#000000"
+                android:orientation="vertical">
+
+    <com.losg.imagepacker.HackyViewPager
+        android:id="@+id/photo_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <TextView
+        android:id="@+id/pager_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/common_margin"
+        android:background="@drawable/bg_image_picker_number"
+        android:paddingBottom="@dimen/line_space"
+        android:paddingLeft="@dimen/common_margin"
+        android:paddingRight="@dimen/common_margin"
+        android:paddingTop="@dimen/line_space"
+        android:textColor="@color/base_white"
+        android:textSize="@dimen/text_size_info"
+        android:visibility="gone"
+        />
+
+    <RelativeLayout
+        android:id="@+id/current_pager_layer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#212121"
+        android:clickable="true"
+        android:visibility="gone"
+        >
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:paddingBottom="@dimen/row_spacing"
+            android:paddingLeft="@dimen/common_margin"
+            android:paddingRight="@dimen/common_margin"
+            android:paddingTop="@dimen/row_spacing"
+            android:src="@mipmap/ic_toolbar_back"
+            />
+
+        <TextView
+            android:id="@+id/current_page"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:paddingBottom="@dimen/row_spacing"
+            android:paddingLeft="@dimen/common_margin"
+            android:paddingRight="@dimen/common_margin"
+            android:paddingTop="@dimen/row_spacing"
+            android:textColor="@color/base_white"
+            android:textSize="@dimen/text_size_title"
+            />
+
+        <LinearLayout
+            android:id="@+id/check_layer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:paddingBottom="@dimen/row_spacing"
+            android:paddingLeft="@dimen/common_margin"
+            android:paddingRight="@dimen/common_margin"
+            android:paddingTop="@dimen/row_spacing"
+            android:clickable="true"
+            >
+
+            <TextView
+                android:id="@+id/page_check"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@drawable/sr_image_picker_select_circle"
+                android:textSize="@dimen/text_size_hint"
+                android:textColor="@color/base_white"
+                android:gravity="center"
+                />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/submit_layer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:clickable="true"
+        android:orientation="vertical"
+        android:visibility="gone"
+        >
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/base_line_color"
+            />
+
+        <include
+            layout="@layout/view_image_picker_submit"
+            />
+
+    </LinearLayout>
+</RelativeLayout>

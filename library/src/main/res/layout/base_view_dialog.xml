@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/root_layer"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:background="@drawable/bg_white_round_middle"
+              android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_dialog_message_title"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="@dimen/common_margin">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/row_spacing"
+            android:gravity="center"
+            android:textColor="@color/base_alpha_color_one"
+            android:textSize="@dimen/text_size_info"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/dialog_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/base_alpha_color_second"
+            android:textSize="@dimen/text_size_hint"/>
+
+    </LinearLayout>
+
+    <include layout="@layout/base_view_line"/>
+
+    <LinearLayout
+        android:id="@+id/btn_layer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/action_cancel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/sr_dialog_message_ok"
+            android:clickable="true"
+            android:gravity="center"
+            android:minHeight="@dimen/big_button_height"
+            android:text="取消"
+            android:textColor="?attr/colorAccent"
+            android:textSize="@dimen/text_size_hint"/>
+
+
+        <View
+            android:layout_width="1px"
+            android:layout_height="match_parent"
+            android:background="@color/base_line_color"/>
+
+        <TextView
+            android:id="@+id/action_ok"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/sr_dialog_message_cancel"
+            android:clickable="true"
+            android:gravity="center"
+            android:minHeight="@dimen/big_button_height"
+            android:text="确定"
+            android:textColor="?attr/colorAccent"
+            android:textSize="@dimen/text_size_hint"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>

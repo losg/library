@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--圆形进度-->
+    <declare-styleable name="ProgressView">
+        <attr name="progress_stroke_size" format="dimension"/>
+        <attr name="progress_stroke_color" format="color"/>
+        <attr name="progress_time" format="integer"/>
+    </declare-styleable>
+
+    <declare-styleable name="TransStatusBar">
+        <attr name="min_sdk" format="integer"/>
+    </declare-styleable>
+</resources>

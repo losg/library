@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- text size -->
+    <dimen name="text_size_big_large">45sp</dimen>
+    <dimen name="text_size_large">34sp</dimen>
+    <dimen name="text_size_xlarge">20sp</dimen>
+    <dimen name="text_size_title">16sp</dimen>
+    <dimen name="text_size_list">14sp</dimen>
+    <dimen name="text_size_info">14sp</dimen>
+    <dimen name="text_size_hint">12sp</dimen>
+    <dimen name="text_size_xsmall">10sp</dimen>
+    <dimen name="text_size_small">8sp</dimen>
+
+    <dimen name="line_space">4dp</dimen>
+    <dimen name="row_spacing">8dp</dimen>
+    <dimen name="common_margin">16dip</dimen>
+
+    <dimen name="tab_height">48dp</dimen>
+    <dimen name="item_height">50dp</dimen>
+    <dimen name="icon_size">48dp</dimen>
+    <dimen name="small_icon_size">30dp</dimen>
+
+
+    <dimen name="small_button_height">20dip</dimen>
+    <dimen name="middle_button_height">36dip</dimen>
+    <dimen name="big_button_height">45dip</dimen>
+
+    <dimen name="base_title_size">18sp</dimen>
+    <dimen name="base_little_round_radius">2dp</dimen>
+    <dimen name="base_middle_round_radius">5dp</dimen>
+    <dimen name="base_big_round_radius">10dp</dimen>
+
+    <!--progress-->
+    <dimen name="base_progress_width">22dp</dimen>
+    <dimen name="base_progress_stroke_width">2dp</dimen>
+    <dimen name="base_progress_close_width">15dp</dimen>
+</resources>

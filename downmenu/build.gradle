@@ -1,0 +1,45 @@
+apply plugin: 'com.android.library'
+apply plugin: 'maven'
+
+android {
+    compileSdkVersion rootProject.ext.COMPILESDKVERSION
+    buildToolsVersion rootProject.ext.BUILDTOOLSVERSION
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.MINSDKVERSION
+        targetSdkVersion rootProject.ext.TARGETSDKVERSION
+        versionCode rootProject.ext.DOWN_MENU_CODE
+        versionName rootProject.ext.DOWN_MENU_VERSION
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    buildToolsVersion '26.0.2'
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile "com.android.support:appcompat-v7:$rootProject.ext.SUPPORT_VERSION"
+    compile "com.android.support:recyclerview-v7:$rootProject.ext.SUPPORT_VERSION"
+}
+
+
+uploadArchives {
+    repositories.mavenDeployer {
+        repository(url: 'http://localhost:8081/repository/losglib/') {
+            authentication(userName: 'admin', password: 'admin123')
+        }
+
+        pom.project {
+            name "losglib"
+            version rootProject.ext.DOWN_MENU_VERSION
+            artifactId 'downmenu'
+            groupId 'com.losg.library'
+            packaging 'aar'
+            description 'downmenu'
+        }
+    }
+}
