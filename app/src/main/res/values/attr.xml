@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--圆形进度-->
+    <declare-styleable name="ProgressView">
+        <attr name="progress_stroke_size" format="dimension"/>
+        <attr name="progress_stroke_color" format="color"/>
+        <attr name="progress_time" format="integer"/>
+    </declare-styleable>
 
-    <declare-styleable name="SliderView">
-        <attr name="scaleType">
-            <enum name="FIT_XY" value="0"/>
-            <enum name="FIT_START" value="1"/>
-            <enum name="FIT_CENTER" value="2"/>
-            <enum name="FIT_END" value="3"/>
-            <enum name="CENTER" value="4"/>
-            <enum name="CENTER_CROP" value="5"/>
-            <enum name="CENTER_INSIDE" value="6"/>
-        </attr>
+    <declare-styleable name="TransStatusBar">
+        <attr name="min_sdk" format="integer"/>
     </declare-styleable>
 </resources>

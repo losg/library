@@ -1,9 +1,0 @@
-<resources>
-    <string name="app_name">library</string>
-    <string name="loading">努力加载中...</string>
-    <string name="network_error">网络错误，请检查当前网络</string>
-    <string name="result_none">没有结果,再试试看</string>
-    <string name="service_error">服务器繁忙，请稍候再试</string>
-    <string name="net_connect_timeout">网络连接超时，请稍候再试</string>
-    <string name="error_data">数据解析异常</string>
-</resources>

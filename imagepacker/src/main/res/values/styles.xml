@@ -1,8 +1,0 @@
-<resources>
-
-    <style name="ToolBarTheme">
-        <item name="colorControlNormal">@color/base_white</item>
-        <item name="actionMenuTextColor">@color/base_white</item>
-    </style>
-
-</resources>
