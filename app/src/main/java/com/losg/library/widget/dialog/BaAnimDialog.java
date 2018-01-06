@@ -49,6 +49,10 @@ public abstract class BaAnimDialog extends Dialog {
         animatorSet.start();
     }
 
+    public void dismissWithoutAnim(){
+        super.dismiss();
+    }
+    
     @Override
     public void dismiss() {
         if (mIsClosing) return;
