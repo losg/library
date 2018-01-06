@@ -34,4 +34,9 @@ public interface IWaitDialog {
      * 关闭对话框
      */
     void dismissWait();
+    
+    /**
+     * 无动画关闭dialog
+     */
+    dismissWithoutAnim();
 }
