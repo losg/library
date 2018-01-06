@@ -327,6 +327,18 @@ public abstract class BaActivity extends AppCompatActivity implements BaseView {
         }
         this.mWaitDialog.dismiss();
     }
+    
+      /**
+     * 关闭等待对话框
+     */
+    public void dismissWaitDialogWithoutAnim() {
+        //若绑定自定义加载对话框，则采用绑定的
+        if (mIWaitDialog != null) {
+            mIWaitDialog.dismissWithoutAnim();
+            return;
+        }
+        this.mWaitDialog.dismissWithoutAnim();
+    }
 
 
     public boolean onOptionsItemSelected(MenuItem item) {
