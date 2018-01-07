@@ -26,6 +26,9 @@ public interface BaseView {
     //关闭信息对话框
     void dismissWaitDialog();
 
+    //关闭信息对话框(无动画)
+    void dismissWaitDialogWithoutAnim();
+    
     //更改加载的状态
     void changeLoadingStatus(BaLoadingView.LoadingStatus status, int tag);
 
