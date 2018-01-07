@@ -137,6 +137,10 @@ public abstract class BaFragment extends Fragment implements BaseView {
     public void dismissWaitDialog() {
         ((BaActivity) this.mContext).dismissWaitDialog();
     }
+    
+     public void dismissWaitDialogWithoutAnim(){
+          ((BaActivity) this.mContext).dismissWaitDialogWithoutAnim();
+     }
 
     public void toastError(ErrorStatus errorStatus) {
         ((BaActivity) this.mContext).toastError(errorStatus);
