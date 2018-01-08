@@ -42,9 +42,23 @@ public class AppUtils {
 
     public static void installApp(Context context, Uri downloadUri) {
         Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setDataAndType(downloadUri, "application/vnd.android.package-archive");
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(intent);
+        File file = new File(apk);
+        if (!file.exists()) {
+            return;
+        }
+        Uri apkUri = null;
+        //7.0以上申请临时访问权限
+        if (Build.VERSION.SDK_INT >= 24) {
+            apkUri = FileProvider.getUriForFile(context, context.getPackageName() + ".fileProvider", file);
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        } else {
+            apkUri = Uri.fromFile(file);
+        }
+        if (apkUri != null) {
+            intent.setDataAndType(apkUri, "application/vnd.android.package-archive");
+            context.startActivity(intent);
+        }
     }
 
     /**
