@@ -22,6 +22,7 @@ import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.Window;
 import android.view.WindowManager;
+import android.support.v4.content.FileProvider;
 
 import java.io.BufferedReader;
 import java.io.File;
