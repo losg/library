@@ -41,7 +41,7 @@ public class AppUtils {
         return false;
     }
 
-    public static void installApp(Context context, Uri downloadUri) {
+    public static void installApp(Context context,String apk) {
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         File file = new File(apk);
