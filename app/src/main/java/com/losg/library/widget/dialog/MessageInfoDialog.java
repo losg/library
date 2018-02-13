@@ -21,6 +21,7 @@ public class MessageInfoDialog extends BaAnimDialog implements View.OnClickListe
     private DialogButtonClick mDialogButtonClick;
     private LinearLayout      mBtnLayer;
     private TextView          mTitle;
+    private boolean           mAutoClose;
 
     private DialogCancelButtonClick mDialogCancelButtonClick;
 
@@ -28,6 +29,7 @@ public class MessageInfoDialog extends BaAnimDialog implements View.OnClickListe
         super(context, R.style.MessageDialog);
         setCancelable(false);
         setCanceledOnTouchOutside(false);
+        mAutoClose = true;
         initView();
     }
 
@@ -74,11 +76,16 @@ public class MessageInfoDialog extends BaAnimDialog implements View.OnClickListe
     public void setDialogButtonClick(DialogButtonClick mDialogButtonClick) {
         this.mDialogButtonClick = mDialogButtonClick;
     }
-
+    
     public void setDialogCancelButtonClick(DialogCancelButtonClick dialogCancelButtonClick) {
         mDialogCancelButtonClick = dialogCancelButtonClick;
     }
 
+    public void setDialogCancelButtonClick(DialogCancelButtonClick dialogCancelButtonClick, boolean autoClose) {
+        mDialogCancelButtonClick = dialogCancelButtonClick;
+        mAutoClose = autoClose;
+    }
+    
     public void setMessage(String message) {
         mDialogMessage.setText(message);
     }
@@ -89,10 +96,11 @@ public class MessageInfoDialog extends BaAnimDialog implements View.OnClickListe
             ok();
             return;
         }
-        dismissMessageDialog();
+        if(mAutoClose)
+            dismissMessageDialog();
 
         if (mDialogCancelButtonClick != null) {
-            mDialogCancelButtonClick.click();
+            mDialogCancelButtonClick.click(this);
         }
     }
 
@@ -112,6 +120,6 @@ public class MessageInfoDialog extends BaAnimDialog implements View.OnClickListe
 
     public interface DialogCancelButtonClick {
 
-        void click();
+        void click(MessageInfoDialog dialog);
     }
 }
