@@ -39,7 +39,7 @@ ext {
     TARGETSDKVERSION = 25
 
     //support 库版本
-    SUPPORT_VERSION = "25.4.0"
+    SUPPORT_VERSION = "26.1.0"
 
     //photoView版本
     PHOTO_VERSION = "1.3.0"
