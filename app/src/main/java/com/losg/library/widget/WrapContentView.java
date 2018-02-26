@@ -32,7 +32,9 @@ public class WrapContentView extends LinearLayout {
         for (int i = 0; i < getChildCount(); i++) {
             View childAt = getChildAt(i);
             childAt.measure(widthMeasureSpec, heightMeasureSpec);
-            height += childAt.getMeasuredHeight();
+            if (childAt.getVisibility() != View.GONE) {
+                height += childAt.getMeasuredHeight();
+            }
         }
         int size = MeasureSpec.getSize(widthMeasureSpec);
         setMeasuredDimension(size, height);
