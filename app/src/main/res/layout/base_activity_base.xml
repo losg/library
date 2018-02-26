@@ -7,11 +7,10 @@
     android:fitsSystemWindows="true"
     android:orientation="vertical">
 
-    <LinearLayout
+    <com.losg.library.widget.WrapContentView
         android:id="@+id/tool_layer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         >
 
         <com.losg.library.widget.TransStatusBar
@@ -29,5 +28,5 @@
             android:theme="@style/ToolBarTheme"
             />
 
-    </LinearLayout>
+    </com.losg.library.widget.WrapContentView>
 </com.losg.library.widget.LinearLayoutDealTransStatus>
