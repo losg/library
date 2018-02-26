@@ -285,6 +285,8 @@ public abstract class BaActivity extends AppCompatActivity implements BaseView {
             this.mWaitDialog.setMessage(message);
             this.mWaitDialog.setDialogForceCloseListener(dialogForceCloseListener);
             this.mWaitDialog.show();
+        }else{
+            this.mWaitDialog.setMessage(message);
         }
     }
 
