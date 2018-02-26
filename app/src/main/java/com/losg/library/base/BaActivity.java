@@ -260,6 +260,7 @@ public abstract class BaActivity extends AppCompatActivity implements BaseView {
         }
     }
 
+  
     /**
      * 显示等待对话框
      *
@@ -267,40 +268,22 @@ public abstract class BaActivity extends AppCompatActivity implements BaseView {
      * @param dialogForceCloseListener 对话框强行关闭监听
      */
     public void showWaitDialog(String message, DialogForceCloseListener dialogForceCloseListener) {
-
-        //若绑定自定义加载对话框，则采用绑定的
-        if (mIWaitDialog != null) {
-            mIWaitDialog.setMessage(message);
-            mIWaitDialog.setCloseListener(dialogForceCloseListener);
-            mIWaitDialog.showClose(true);
-            mIWaitDialog.showWait();
-            return;
-        }
-
-        if (this.mWaitDialog == null) {
-            this.mWaitDialog = new ProgressDialog(this);
-        }
-
-        if (!this.mWaitDialog.isShowing()) {
-            this.mWaitDialog.setMessage(message);
-            this.mWaitDialog.setDialogForceCloseListener(dialogForceCloseListener);
-            this.mWaitDialog.show();
-        }else{
-            this.mWaitDialog.setMessage(message);
-        }
+        showWaitDialog(false, message, dialogForceCloseListener,true);
     }
 
 
     public void showWaitDialog(boolean showClose, String message, ProgressDialog.DialogForceCloseListener dialogForceCloseListener) {
-        if (showClose) {
-            showWaitDialog(message, dialogForceCloseListener);
-            return;
-        }
+      
+        showWaitDialog(showClose,message,dialogForceCloseListener, true);
+    }
+    
+    public void showWaitDialog(boolean showClose, String message, ProgressDialog.DialogForceCloseListener dialogForceCloseListener, boolean showIfNotShow) {
+       
         //若绑定自定义加载对话框，则采用绑定的
         if (mIWaitDialog != null) {
             mIWaitDialog.setMessage(message);
             mIWaitDialog.setCloseListener(dialogForceCloseListener);
-            mIWaitDialog.showClose(false);
+            mIWaitDialog.showClose(showClose);
             mIWaitDialog.showWait();
             return;
         }
@@ -309,11 +292,13 @@ public abstract class BaActivity extends AppCompatActivity implements BaseView {
             this.mWaitDialog = new ProgressDialog(this);
         }
 
-        if (!this.mWaitDialog.isShowing()) {
+        if (!this.mWaitDialog.isShowing() && showIfNotShow) {
             this.mWaitDialog.setMessage(message);
-            this.mWaitDialog.showClose(false);
+            this.mWaitDialog.showClose(showClose);
             this.mWaitDialog.setDialogForceCloseListener(dialogForceCloseListener);
             this.mWaitDialog.show();
+        }else{
+            this.mWaitDialog.setMessage(message);
         }
     }
 
