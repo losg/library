@@ -48,8 +48,8 @@ ext {
     GLIDE_VERSION = "3.7.0"
 
     //rxAndroid retrofit
-    retrofitVersion = '2.2.0'
-    rxAndroidVersion = '1.2.0'
+    retrofitVersion = '2.3.0'
+    rxAndroidVersion = '2.0.2'
 
     /**
      * 自定义库
