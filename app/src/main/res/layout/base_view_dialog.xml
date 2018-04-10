@@ -20,6 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/row_spacing"
             android:gravity="center"
+            android:background="@color/base_transparent"
             android:textColor="@color/base_alpha_color_one"
             android:textSize="@dimen/text_size_info"
             android:visibility="gone"/>
@@ -29,6 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/base_alpha_color_second"
+            android:background="@color/base_transparent"
             android:textSize="@dimen/text_size_hint"/>
 
     </LinearLayout>
@@ -39,6 +41,7 @@
         android:id="@+id/btn_layer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/base_transparent"
         android:orientation="horizontal">
 
         <TextView
@@ -63,7 +66,7 @@
         <TextView
             android:id="@+id/action_ok"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/sr_dialog_message_cancel"
             android:clickable="true"

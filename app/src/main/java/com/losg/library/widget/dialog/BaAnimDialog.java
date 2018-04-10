@@ -52,7 +52,7 @@ public abstract class BaAnimDialog extends Dialog {
     public void dismissWithoutAnim(){
         super.dismiss();
     }
-    
+
     @Override
     public void dismiss() {
         if (mIsClosing) return;
