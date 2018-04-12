@@ -260,7 +260,7 @@ public abstract class BaActivity extends AppCompatActivity implements BaseView {
         }
     }
 
-  
+
     /**
      * 显示等待对话框
      *
@@ -268,17 +268,17 @@ public abstract class BaActivity extends AppCompatActivity implements BaseView {
      * @param dialogForceCloseListener 对话框强行关闭监听
      */
     public void showWaitDialog(String message, DialogForceCloseListener dialogForceCloseListener) {
-        showWaitDialog(false, message, dialogForceCloseListener,true);
+        showWaitDialog(false, message, dialogForceCloseListener, true);
     }
 
 
     public void showWaitDialog(boolean showClose, String message, ProgressDialog.DialogForceCloseListener dialogForceCloseListener) {
-      
-        showWaitDialog(showClose,message,dialogForceCloseListener, true);
+
+        showWaitDialog(showClose, message, dialogForceCloseListener, true);
     }
-    
+
     public void showWaitDialog(boolean showClose, String message, ProgressDialog.DialogForceCloseListener dialogForceCloseListener, boolean showIfNotShow) {
-       
+
         //若绑定自定义加载对话框，则采用绑定的
         if (mIWaitDialog != null) {
             mIWaitDialog.setMessage(message);
@@ -297,7 +297,7 @@ public abstract class BaActivity extends AppCompatActivity implements BaseView {
             this.mWaitDialog.showClose(showClose);
             this.mWaitDialog.setDialogForceCloseListener(dialogForceCloseListener);
             this.mWaitDialog.show();
-        }else{
+        } else {
             this.mWaitDialog.setMessage(message);
         }
     }
@@ -312,10 +312,11 @@ public abstract class BaActivity extends AppCompatActivity implements BaseView {
             mIWaitDialog.dismissWait();
             return;
         }
-        this.mWaitDialog.dismiss();
+        if (mWaitDialog != null)
+            this.mWaitDialog.dismiss();
     }
-    
-      /**
+
+    /**
      * 关闭等待对话框
      */
     public void dismissWaitDialogWithoutAnim() {
@@ -324,7 +325,8 @@ public abstract class BaActivity extends AppCompatActivity implements BaseView {
             mIWaitDialog.dismissWithoutAnim();
             return;
         }
-        this.mWaitDialog.dismissWithoutAnim();
+        if (mWaitDialog != null)
+            this.mWaitDialog.dismissWithoutAnim();
     }
 
 
