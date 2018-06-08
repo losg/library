@@ -15,24 +15,32 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 
+import com.losg.library.base.IMessageDialog;
+import com.losg.library.base.interfaces.IMessageDialogButtonClick;
+
 /**
  * Created by losg on 2016/5/30.
  */
 public class PermissionUtils {
 
     private Context  mContext;
-    private String   mPermission;
     private String[] mPermissions;
     private boolean isMSDK                = false;
     private boolean isToRequestPermission = false;
+    private boolean isMust                = false;
     private PermissionListener permissionListener;
-    private boolean isMust = false;
+    private IMessageDialog     mIMessageDialog;
 
     public PermissionUtils(Context mContext) {
         this.mContext = mContext;
+
         if (Build.VERSION.SDK_INT >= 23) {
             isMSDK = true;
         }
+    }
+
+    public void bindIMessageDialog(IMessageDialog iMessageDialog) {
+        mIMessageDialog = iMessageDialog;
     }
 
     public PermissionUtils setMust(boolean must) {
@@ -40,53 +48,71 @@ public class PermissionUtils {
         return this;
     }
 
-    public String getmPermission() {
-        return mPermission;
-    }
-
     //获取权限
     public void permissionCheck(final String permission) {
         //低版本不需要动态权限，直接返回成功后续做其它操作
-        if (!isMSDK){
-            if(permissionListener != null)
+        if (!isMSDK) {
+            if (permissionListener != null)
                 permissionListener.permissionSuccess();
             return;
         }
-        mPermission = permission;
+        mPermissions = new String[1];
+        mPermissions[0] = permission;
+
         //没有获取到权限
         if (ContextCompat.checkSelfPermission(mContext, permission) != PackageManager.PERMISSION_GRANTED) {
             //没有获取权限
-            if (ActivityCompat.shouldShowRequestPermissionRationale((Activity) mContext, mPermission)) {
-                //需要提示用户
-                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-                builder.setTitle("提醒");
-                builder.setMessage("部分功能需要您的授权，否则影响使用");
-                builder.setCancelable(false);
-                builder.setPositiveButton("知道了", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        //请求获取权限
-                        ActivityCompat.requestPermissions((Activity) mContext, new String[]{permission}, 100);
-                        dialog.dismiss();
-                    }
-                });
-                builder.show();
+            if (ActivityCompat.shouldShowRequestPermissionRationale((Activity) mContext, mPermissions[0])) {
+                showDialogForPermission();
                 return;
             }
             //请求获取权限
             ActivityCompat.requestPermissions((Activity) mContext, new String[]{permission}, 100);
             return;
         }
-        if(permissionListener != null)
+        if (permissionListener != null)
             permissionListener.permissionSuccess();
+    }
+
+    private void showDialogForPermission() {
+        //需要提示用户
+        if (mIMessageDialog != null) {
+            mIMessageDialog.setTitle("提醒");
+            mIMessageDialog.setMessage("部分功能需要您的授权，否则影响使用");
+            mIMessageDialog.setButtonTitle("知道了", "");
+            mIMessageDialog.setOkButtonClick(new IMessageDialogButtonClick() {
+                @Override
+                public void messageDialogClick(IMessageDialog iMessageDialog) {
+                    //请求获取权限
+                    ActivityCompat.requestPermissions((Activity) mContext, mPermissions, 100);
+                    iMessageDialog.dismissDialog();
+                }
+            });
+            mIMessageDialog.showDialog();
+            return;
+        }
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        builder.setTitle("提醒");
+        builder.setMessage("部分功能需要您的授权，否则影响使用");
+        builder.setCancelable(false);
+        builder.setPositiveButton("知道了", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //请求获取权限
+                ActivityCompat.requestPermissions((Activity) mContext, mPermissions, 100);
+                dialog.dismiss();
+            }
+        });
+        builder.show();
     }
 
 
     //获取权限
     public void permissionCheckAll(final String... permission) {
         //低版本不需要动态权限，直接返回成功后续做其它操作
-        if (!isMSDK){
-            if(permissionListener != null)
+        if (!isMSDK) {
+            if (permissionListener != null)
                 permissionListener.permissionSuccess();
             return;
         }
@@ -96,10 +122,10 @@ public class PermissionUtils {
         boolean needDialog = false;
 
         for (String s : permission) {
-            if (ContextCompat.checkSelfPermission(mContext, s) != PackageManager.PERMISSION_GRANTED){
+            if (ContextCompat.checkSelfPermission(mContext, s) != PackageManager.PERMISSION_GRANTED) {
                 needPermission = true;
             }
-            if(ActivityCompat.shouldShowRequestPermissionRationale((Activity) mContext, s)){
+            if (ActivityCompat.shouldShowRequestPermissionRationale((Activity) mContext, s)) {
                 needDialog = true;
             }
         }
@@ -108,31 +134,19 @@ public class PermissionUtils {
         if (needPermission) {
             //没有获取权限
             if (needDialog) {
-                //需要提示用户
-                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-                builder.setTitle("提醒");
-                builder.setMessage("部分功能需要您的授权，否则影响使用");
-                builder.setCancelable(false);
-                builder.setPositiveButton("知道了", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        ActivityCompat.requestPermissions((Activity) mContext, mPermissions, 100);
-                        dialog.dismiss();
-                    }
-                });
-                builder.show();
+                showDialogForPermission();
                 return;
             }
             //请求获取权限
             ActivityCompat.requestPermissions((Activity) mContext, mPermissions, 100);
             return;
         }
-        if(permissionListener != null)
+        if (permissionListener != null)
             permissionListener.permissionSuccess();
     }
 
     public void onResume() {
-        if (!isMSDK) return;
+        if (!isMSDK || mPermissions == null) return;
         //去请求权限
         if (isToRequestPermission) {
             checkUserPermission();
@@ -142,16 +156,24 @@ public class PermissionUtils {
 
     private void checkUserPermission() {
         if (permissionListener == null) return;
-        if (ContextCompat.checkSelfPermission(mContext, mPermission) != PackageManager.PERMISSION_GRANTED) {
-            permissionListener.permissionFailure();
-        } else {
+        boolean permissionSuccess = true;
+
+        for (String permission : mPermissions) {
+            if (ContextCompat.checkSelfPermission(mContext, permission) != PackageManager.PERMISSION_GRANTED) {
+                permissionSuccess = false;
+            }
+        }
+
+        if (permissionSuccess) {
             permissionListener.permissionSuccess();
+        } else {
+            permissionListener.permissionFailure();
         }
     }
 
     public void onSaveInstanceState(Bundle outState) {
         outState.putBoolean("isMust", isMust);
-        outState.putString("mPermission", mPermission);
+        outState.putStringArray("mPermission", mPermissions);
         outState.putBoolean("isToRequestPermission", isToRequestPermission);
     }
 
@@ -159,21 +181,20 @@ public class PermissionUtils {
         if (saveState == null) return;
         isMust = saveState.getBoolean("isMust");
         isToRequestPermission = saveState.getBoolean("isToRequestPermission");
-        mPermission = saveState.getString("mPermission");
+        mPermissions = saveState.getStringArray("mPermission");
     }
 
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (!isMSDK) return;
-        if(grantResults == null) return;
-
+        if (grantResults == null || grantResults.length == 0) return;
         boolean success = true;
         for (int grantResult : grantResults) {
-            if(grantResult != PackageManager.PERMISSION_GRANTED){
+            if (grantResult != PackageManager.PERMISSION_GRANTED) {
                 success = false;
             }
         }
 
-        if(success){
+        if (success) {
             if (permissionListener != null) {
                 permissionListener.permissionSuccess();
             }
@@ -185,6 +206,31 @@ public class PermissionUtils {
 
     //设置权限提示框
     private void permissionDialog() {
+        if (mIMessageDialog != null) {
+            mIMessageDialog.setTitle("提醒");
+            mIMessageDialog.setMessage("您拒绝权限申请。\n请点击\"设置\" -\"权限\" - 打开所需的权限。 ");
+            String negativeString = isMust ? "退出应用" : "关闭";
+            mIMessageDialog.setButtonTitle("设置", negativeString);
+            mIMessageDialog.setOkButtonClick(new IMessageDialogButtonClick() {
+                @Override
+                public void messageDialogClick(IMessageDialog iMessageDialog) {
+                    startSetting();
+                    iMessageDialog.dismissDialog();
+                }
+            });
+            mIMessageDialog.setCancelButtonClick(new IMessageDialogButtonClick() {
+                @Override
+                public void messageDialogClick(IMessageDialog iMessageDialog) {
+                    iMessageDialog.dismissDialog();
+                    if (permissionListener != null) {
+                        permissionListener.permissionFailure();
+                    }
+                }
+            });
+            mIMessageDialog.showDialog();
+            return;
+        }
+
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
         builder.setTitle("提醒");
         builder.setMessage("您拒绝权限申请。\n请点击\"设置\" -\"权限\" - 打开所需的权限。 ");
@@ -198,7 +244,6 @@ public class PermissionUtils {
         });
 
         String negativeString = isMust ? "退出应用" : "关闭";
-
         builder.setNegativeButton(negativeString, new DialogInterface.OnClickListener() {
 
             @Override

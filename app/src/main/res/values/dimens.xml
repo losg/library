@@ -20,7 +20,6 @@
     <dimen name="icon_size">48dp</dimen>
     <dimen name="small_icon_size">30dp</dimen>
 
-
     <dimen name="small_button_height">20dip</dimen>
     <dimen name="middle_button_height">36dip</dimen>
     <dimen name="big_button_height">45dip</dimen>
