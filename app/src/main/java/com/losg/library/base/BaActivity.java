@@ -53,7 +53,7 @@ public abstract class BaActivity extends AppCompatActivity implements BaseView, 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(layout.base_activity_base);
-        mPermissionUtils = new PermissionUtils(mContext);
+        mPermissionUtils = new PermissionUtils(this);
 
         LinearLayout linearLayout = (LinearLayout) this.findViewById(id.root_view);
         mToolLayer = (LinearLayout) this.findViewById(id.tool_layer);
