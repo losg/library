@@ -10,4 +10,15 @@
     <declare-styleable name="TransStatusBar">
         <attr name="min_sdk" format="integer"/>
     </declare-styleable>
+
+    <declare-styleable name="MenuContenter">
+        <attr name="Menu_textSize" format="dimension" />
+        <attr name="Menu_Color" format="color" />
+        <attr name="Menu_menuPadding" format="dimension" />
+        <attr name="Menu_menuMargin" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="DesignRefreshRecyclerView">
+        <attr name="padding_top" format="dimension" />
+    </declare-styleable>
 </resources>
