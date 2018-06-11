@@ -102,6 +102,15 @@ public abstract class BaActivity extends AppCompatActivity implements BaseView, 
         mPermissionUtils.bindIMessageDialog(iMessageDialog);
     }
 
+    public void checkPermission(String... permission) {
+        mPermissionUtils.permissionCheckAll(permission);
+    }
+
+    public void checkAllPermission(String... permission) {
+        mPermissionUtils.permissionCheckAll(permission);
+        mPermissionUtils.setMust(true);
+    }
+
     protected void initOthers() {
     }
 
