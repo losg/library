@@ -26,15 +26,15 @@ import java.io.File;
 public class AndroidInstaller {
 
     //跳转到应用安装权限设置界面的requestCode
-    private static final int REQUEST_FOR_SETTING = 10011;
+    private static final int    REQUEST_FOR_SETTING    = 10011;
     //获取安装权限的requestCode
-    private static final int PERMISSION_FOR_INSTALL = 10010;
+    private static final int    PERMISSION_FOR_INSTALL = 10010;
     //获取安装权限
-    private static String PERMISSION_INSTALL = "android.permission.REQUEST_INSTALL_PACKAGES";
+    private static       String PERMISSION_INSTALL     = "android.permission.REQUEST_INSTALL_PACKAGES";
 
     private Context mContext;
     //apk所在目录
-    private String mApkPath;
+    private String  mApkPath;
 
     //提示用户信息
     private IMessageDialog mIMessageDialog;
@@ -44,6 +44,8 @@ public class AndroidInstaller {
 
     //要求必须获取到权限，否则退出APP(强制)
     private boolean mMustPermission = false;
+
+    private AndroidInstallListener mAndroidInstallListener;
 
 
     /**
@@ -98,7 +100,7 @@ public class AndroidInstaller {
 
             //获取权限请求
             if (mShowMsgBeforePermission) {
-                if(mIMessageDialog == null){
+                if (mIMessageDialog == null) {
                     mIMessageDialog = new DefaultPermissionDialog(mContext);
                 }
                 mIMessageDialog.setButtonTitle("知道了", "");
@@ -168,6 +170,9 @@ public class AndroidInstaller {
             @Override
             public void messageDialogClick(IMessageDialog iMessageDialog) {
                 iMessageDialog.dismissDialog();
+                Intent intent = new Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES);
+                if (mContext instanceof Activity)
+                    ((Activity) AndroidInstaller.this.mContext).startActivityForResult(intent, REQUEST_FOR_SETTING);
             }
         });
 
@@ -175,16 +180,8 @@ public class AndroidInstaller {
             @Override
             public void messageDialogClick(IMessageDialog iMessageDialog) {
                 iMessageDialog.dismissDialog();
-                if (mMustPermission && mContext instanceof AppCompatActivity) {
-                    ((AppCompatActivity) mContext).finish();
-                    //延迟退出APP,直接强杀会给用户感觉应用崩溃了
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            Process.killProcess(Process.myPid());
-                        }
-                    }, 200);
-                }
+                if (mAndroidInstallListener != null)
+                    mAndroidInstallListener.androidInstallFailure(mMustPermission);
             }
         });
         mIMessageDialog.showDialog();
@@ -232,6 +229,15 @@ public class AndroidInstaller {
             intent.setDataAndType(apkUri, "application/vnd.android.package-archive");
             context.startActivity(intent);
         }
+    }
+
+
+    public void setAndroidInstallListener(AndroidInstallListener androidInstallListener) {
+        mAndroidInstallListener = androidInstallListener;
+    }
+
+    public interface AndroidInstallListener {
+        void androidInstallFailure(boolean must);
     }
 
 }
