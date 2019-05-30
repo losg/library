@@ -27,7 +27,7 @@ public class AppBackUtil {
                 public void run() {
                     Process.killProcess(Process.myPid());
                 }
-            }, 300);
+            }, 2000);
             mActivity.finish();
         } else {
             mExit = true;

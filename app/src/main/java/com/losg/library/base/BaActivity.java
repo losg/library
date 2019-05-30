@@ -3,7 +3,6 @@ package com.losg.library.base;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -15,7 +14,6 @@ import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 
-import com.losg.library.R;
 import com.losg.library.R.color;
 import com.losg.library.R.dimen;
 import com.losg.library.R.id;
@@ -24,7 +22,6 @@ import com.losg.library.R.mipmap;
 import com.losg.library.R.string;
 import com.losg.library.utils.CommonUtils;
 import com.losg.library.utils.DisplayUtil;
-import com.losg.library.utils.PermissionUtils;
 import com.losg.library.widget.TransStatusBar;
 import com.losg.library.widget.dialog.ProgressDialog;
 import com.losg.library.widget.dialog.ProgressDialog.DialogForceCloseListener;
@@ -33,7 +30,7 @@ import com.losg.library.widget.loading.BaLoadingViewHelper;
 
 import java.util.HashMap;
 
-public abstract class BaActivity extends AppCompatActivity implements BaseView, PermissionUtils.PermissionListener {
+public abstract class BaActivity extends AppCompatActivity implements BaseView {
 
     protected Context                               mContext;
     protected Toolbar                               mToolbar;
@@ -45,7 +42,6 @@ public abstract class BaActivity extends AppCompatActivity implements BaseView, 
     private   IRefreshView                          mIRefreshView;
     private   IWaitDialog                           mIWaitDialog;
     private   IToast                                mIToast;
-    private   PermissionUtils                       mPermissionUtils;
 
     public BaActivity() {
     }
@@ -53,7 +49,6 @@ public abstract class BaActivity extends AppCompatActivity implements BaseView, 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(layout.base_activity_base);
-        mPermissionUtils = new PermissionUtils(this);
 
         LinearLayout linearLayout = (LinearLayout) this.findViewById(id.root_view);
         mToolLayer = (LinearLayout) this.findViewById(id.tool_layer);
@@ -65,9 +60,7 @@ public abstract class BaActivity extends AppCompatActivity implements BaseView, 
 
         if (savedInstanceState != null) {
             this.restoreInstance(savedInstanceState);
-            mPermissionUtils.onReBackState(savedInstanceState);
         }
-        mPermissionUtils.setPermissionListener(this);
 
         this.initParams();
         this.bindView();
@@ -76,39 +69,9 @@ public abstract class BaActivity extends AppCompatActivity implements BaseView, 
         this.initOthers();
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        mPermissionUtils.onResume();
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        mPermissionUtils.onSaveInstanceState(outState);
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        mPermissionUtils.onRequestPermissionsResult(requestCode, permissions, grantResults);
-    }
 
     public void setStatusTrans() {
         mTransStatusBar.setVisibility(View.VISIBLE);
-    }
-
-    public void bindPermission(IMessageDialog iMessageDialog){
-        mPermissionUtils.bindIMessageDialog(iMessageDialog);
-    }
-
-    public void checkPermission(String... permission) {
-        mPermissionUtils.permissionCheckAll(permission);
-    }
-
-    public void checkAllPermission(String... permission) {
-        mPermissionUtils.permissionCheckAll(permission);
-        mPermissionUtils.setMust(true);
     }
 
     protected void initOthers() {
@@ -375,15 +338,5 @@ public abstract class BaActivity extends AppCompatActivity implements BaseView, 
                 break;
         }
         return true;
-    }
-
-    @Override
-    public void permissionSuccess() {
-
-    }
-
-    @Override
-    public void permissionFailure() {
-
     }
 }

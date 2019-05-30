@@ -61,6 +61,11 @@ public class MessageInfoDialog extends BaAnimDialog implements View.OnClickListe
             mBtnLayer.getChildAt(0).setVisibility(View.GONE);
             mBtnLayer.getChildAt(1).setVisibility(View.GONE);
             mBtnLayer.getChildAt(2).setBackgroundResource(R.drawable.sr_dialog_message_click);
+        }else{
+            mBtnLayer.getChildAt(0).setVisibility(View.VISIBLE);
+            mBtnLayer.getChildAt(1).setVisibility(View.VISIBLE);
+            mBtnLayer.getChildAt(0).setBackgroundResource(R.drawable.sr_dialog_message_ok);
+            mBtnLayer.getChildAt(2).setBackgroundResource(R.drawable.sr_dialog_message_cancel);
         }
     }
 
